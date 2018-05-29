@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Form Validation</title>
+  <style>
+    .constraint {
+      max-width: 1088px;
+      margin: 0 auto;
+    }
+    .flex-between {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #254e5e;
+    }
+    form {
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    input {
+      flex: 300px 1 1;
+      margin: 20px;
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="constraint">
+    <h1>Form Validation</h1>
+    <div class="flex-between">
+      <label>Email (required)</label>
+      <label>Password (required)</label>
+    </div>
+    <form type="submit">
+      <input type="email" name="email" />
+      <input type="password" />
+    </form>
+  </div>
+
+  <script type="text/javascript">
+    const email = document.querySelector('input[type="email"');
+    const password = document.querySelector('input[type="password"');
+    
+    email.addEventListener('change', function() {
+      if (this.validity.valid === true) {
+        console.log('success');
+      } else {
+        console.log('fail');
+      }
+    })
+    
+    password.addEventListener('change', function() {
+      console.log(this.validity);
+    })
+  </script>
+</body>
+</html>
