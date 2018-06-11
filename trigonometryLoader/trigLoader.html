@@ -12,28 +12,35 @@
       svg has traditional coordinate system with origin at the top left
       with x,y values increasing as you move right and down (in pixels)
     -->
-    <circle id="c" cx="150" cy="75" r="10"/>
+    <circle id="left" cx="125" cy="75" r="10"/>
+    <circle id="center" cx="150" cy="75" r="10"/>
+    <circle id="right" cx="175" cy="75" r="10"/>
   </svg>
 
   <script type="text/javascript">
-    const circle = document.getElementById('c');
+    let center = document.getElementById('center');
+    let left = document.getElementById('left');
+    let right = document.getElementById('right');
 
     let currentAnimationTime = 0;
     const centerY = 75;
+    const amplitude = 20;
+    const offset = 1.5;
 
     animate();
 
     function animate() {
-      circle.setAttribute('cy', centerY + (Math.sin(currentAnimationTime)) );
+      left.setAttribute( 'cy', centerY + ( amplitude * (Math.sin(currentAnimationTime - offset)) ) );
+      center.setAttribute( 'cy', centerY + ( amplitude * (Math.sin(currentAnimationTime)) ) );
+      right.setAttribute( 'cy', centerY + ( amplitude * (Math.sin(currentAnimationTime + offset)) ) );
+      
       currentAnimationTime += 0.15;
+      // when you are animating something, use the "requestAnimationFrame"
+      // inside of your animation function and have it recursively
+      // call your animation function ( will call 60fps )
       requestAnimationFrame(animate);
     }
 
-    function loaded() {
-
-    }
-
-    window.onload = loaded;
   </script>
 </body>
 </html>
