@@ -36,6 +36,11 @@ ul {
   padding: 0;
 }
 
+p {
+  margin-top: 400px;
+  text-align: center;
+}
+
 .tabs {
   max-width: 1088px;
   background: #9160be;
