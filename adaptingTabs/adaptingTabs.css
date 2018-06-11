@@ -10,6 +10,21 @@ a {
   color: #ddd;
 }
 
+button {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  font-size: 1em;
+  color: #ddd;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+button:focus {
+  outline: none;
+}
+
 li {
   list-style-type: none;
 }
@@ -24,23 +39,59 @@ ul {
   background: #9160be;
   margin: 0 auto;
   padding: 0px;
+  position: relative;
 }
 
-.tabs .-primary {
+.tabs .primary {
   display: flex;
 }
 
-.tabs .-primary > li {
+.tabs .primary > li {
   flex-grow: 1;
   text-align: center;
   padding: 0.8em 1em;
   border-bottom: 2px solid #7b4ea5;
 }
 
-.tabs .-primary li:hover {
+.tabs .primary li:hover {
   background: #7b4ea5
 }
 
-.tabs .-primary > li:not(:last-child) {
+.tabs .primary > li:not(:last-child) {
   border-right: 2px solid #7b4ea5;
 }
+
+/* account for lack of js enabling */
+.tabs:not(.jsfied) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabs .more {
+  background: #7b4ea5;
+  cursor: pointer;
+}
+
+.tabs .secondary > li {
+  border-top: 2px solid #9160be;
+  border-left: 2px solid #9160be;
+  background: #7b4ea5;
+  padding: 0.8em 1.75em;
+  text-align: center;
+}
+
+.tabs .secondary > li:hover {
+  background: #9160be;
+}
+
+.tabs .secondary {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
+
+.show-secondary .secondary {
+  display: block;
+}
+
