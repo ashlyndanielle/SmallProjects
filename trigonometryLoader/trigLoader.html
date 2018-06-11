@@ -14,5 +14,26 @@
     -->
     <circle id="c" cx="150" cy="75" r="10"/>
   </svg>
+
+  <script type="text/javascript">
+    const circle = document.getElementById('c');
+
+    let currentAnimationTime = 0;
+    const centerY = 75;
+
+    animate();
+
+    function animate() {
+      circle.setAttribute('cy', centerY + (Math.sin(currentAnimationTime)) );
+      currentAnimationTime += 0.15;
+      requestAnimationFrame(animate);
+    }
+
+    function loaded() {
+
+    }
+
+    window.onload = loaded;
+  </script>
 </body>
 </html>
