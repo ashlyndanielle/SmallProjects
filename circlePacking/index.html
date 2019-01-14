@@ -44,27 +44,41 @@
     */
 
     let circles = [];
-    const minRadius = 2;
-    const maxRadius = 100;
-    const totalCircles = 500;
-    const createCricleAttempts = 500;
+    const minRadius = 4;
+    const maxRadius = 150;
+    const totalCircles = 1000;
+    const createCircleAttempts = 500;
 
     function createAndDrawCricle() {
       // loop through from 0 to createCircleAttempts trying to create a circle
-      let newCircle = {
-        // x and y cordinates somewhere on the canvas
-        // center of the circle
-        x: Math.floor(Math.random() * size),
-        y: Math.floor(Math.random() * size),
-        radius: minRadius
-      };
+      let newCircle;
+      let circleSafeToDraw = false;
+      for (let tries = 0; tries < createCircleAttempts; tries++) {
+        newCircle = {
+          // x and y cordinates somewhere on the canvas
+          // center of the circle
+          x: Math.floor(Math.random() * size),
+          y: Math.floor(Math.random() * size),
+          radius: minRadius
+        };
 
+        if (doesCircleHaveACollision(newCircle)) {
+          continue;
+        } else {
+          circleSafeToDraw = true;
+          break;
+        }
+      }
+
+      if (!circleSafeToDraw) {
+        return;
+      }
       // once we have a circle created,
       // grow until it hits another or reaches max size
       for (let radiusSize = minRadius; radiusSize < maxRadius; radiusSize++) {
         newCircle.radius = radiusSize;
         if (doesCircleHaveACollision(newCircle)) {
-          newCircle.radiusSize--;
+          newCircle.radiusSize-= 2;
           break;
         }
       }
