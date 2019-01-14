@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Circle Packing</title>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+  </style>
+  <script>
+    const canvas = document.querySelector('#canvas');
+    const context = canvas.getContext('2d');
+    context.strokeStyle = 'black';
+
+    let size = window.innerWidth;
+    const dpr = window.devicePixelRatio;
+
+    // set canvas size according to user's pixel density
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    context.scale(dpr, dpr);
+    context.lineWidth = 2;
+
+    /*
+      STEPS
+      1. Create a new Circle
+      2. check to see if circle collides with any other circles
+      3. if it doesn't collide, grow and check again
+      4. repeat until we have collision (max size)
+      5. repeat
+    */
+
+    let circles = [];
+    const minRadius = 2;
+    const maxRadius = 100;
+    const totalCircles = 500;
+    const createCricleAttempts = 500;
+
+    function createAndDrawCricle() {
+      // loop through from 0 to createCircleAttempts trying to create a circle
+      let newCircle = {
+        // x and y cordinates somewhere on the canvas
+        // center of the circle
+        x: Math.floor(Math.random() * size),
+        y: Math.floor(Math.random() * size),
+        radius: minRadius
+      };
+
+      // once we have a circle created,
+      // grow until it hits another or reaches max size
+      for (let radiusSize = minRadius; radiusSize < maxRadius; radiusSize++) {
+        newCircle.radius = radiusSize;
+        if (doesCircleHaveACollision(newCircle)) {
+          newCircle.radiusSize--;
+          break;
+        }
+      }
+
+      circles.push(newCircle);
+      context.beginPath();
+        context.arc(newCircle.x, newCircle.y, newCircle.radius, 0, 2 * Math.PI);
+      context.stroke();
+
+      // draw circle
+    };
+
+    function doesCircleHaveACollision(circle) {
+      // return true or false depeneding on if it hits another circle
+      for (let i = 0; i < circles.length; i++) {
+        let otherCirle = circles[i];
+
+        let a = circle.radius + otherCirle.radius;
+        let x = circle.x - otherCirle.x;
+        let y = circle.y - otherCirle.y;
+        // pythagorean theorem
+        // if the combined radius (a) is greater than
+        // the distance between their centers return true
+        if (a >= Math.sqrt((x*x) + (y*y))) {
+          return true;
+        }
+      }
+
+      return false
+    };
+
+    for (let i = 0; i < totalCircles; i++) {
+      createAndDrawCricle();
+    }
+  </script>
+</body>
+
+</html>
